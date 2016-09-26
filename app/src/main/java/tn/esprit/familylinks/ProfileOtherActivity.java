@@ -1,0 +1,55 @@
+package tn.esprit.familylinks;
+
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import tn.esprit.familylinks.Utils.sharedInformation;
+import tn.esprit.familylinks.Utils.user;
+
+public class ProfileOtherActivity extends AppCompatActivity {
+    private ImageView mImageView;
+    private TextView nameU;
+    private TextView job;
+    private TextView date;
+    private TextView email;
+    private Button editprofile;
+    private TextView email1;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_profile_other);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        user u= sharedInformation.sharedcurrentPerson;
+        //   mListView = (AnimationProfilePhoto) view.findViewById(R.id.layout_listview);
+        mImageView = (ImageView) findViewById(R.id.imageUser);
+        nameU = (TextView) findViewById(R.id.nameUser);
+        job = (TextView) findViewById(R.id.job);
+        date = (TextView) findViewById(R.id.dob);
+        // email = (TextView) findViewById(R.id.email1);
+        email1 = (TextView) findViewById(R.id.Country);
+        Bitmap bitmap = u.photoIS;
+        mImageView.setImageBitmap(bitmap);
+        String fn = u.name;
+        String ln = u.lastName;
+        this.setTitle(fn + " "+ln);
+        job.setText(u.job);
+        date.setText(u.age);
+        email1.setText(u.gender);
+    }
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(getApplication(), MainActivity.class);
+        intent.putExtra("searched", sharedInformation.sharedSelectedPerson.personId);
+        startActivity(intent);
+    }
+
+}
